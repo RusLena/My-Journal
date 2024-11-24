@@ -1,139 +1,165 @@
-import React, { useState, useEffect } from "react";
-import { FaPlusCircle } from "react-icons/fa";
-import Hero from "../components/Hero";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import Col from "../components/Col";
-import ListItem from "../components/ListItem/index";
-import background from "../assets/notesBackground.jpeg";
+import { useState, useEffect } from "react";
+import Hero from "../components/Hero/Hero";
+import { Container, Row, Col } from "react-bootstrap";
+import { FaPlusCircle, FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import "../main.css";
 import "animate.css";
 
-function Task() {
-  const [task, setTask] = useState("");
-  const [taskDescription, setTaskDescription] = useState("");
-  const [taskList, setTaskList] = useState([]);
+function Tasks() {
+  const localStorageKey = "tasks";
+
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem(localStorageKey);
+    try {
+      return storedTasks ? JSON.parse(storedTasks) : [];
+    } catch (error) {
+      console.error("Failed to parse local storage data:", error);
+      return [];
+    }
+  });
+
   const [editIndex, setEditIndex] = useState(null);
+  const [taskTitle, setTaskTitle] = useState("");
+  const [dueDate, setDueDate] = useState("");
+  const [isCompleted, setIsCompleted] = useState(false);
 
   useEffect(() => {
-    const savedTaskList = JSON.parse(localStorage.getItem("taskList"));
-    if (savedTaskList) {
-      setTaskList(savedTaskList);
-    }
-  }, []);
+    localStorage.setItem(localStorageKey, JSON.stringify(tasks));
+  }, [tasks]);
 
-  const handleSave = () => {
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const newTask = { title: taskTitle, dueDate, isCompleted };
+
     if (editIndex !== null) {
-      const updatedList = [...taskList];
-      updatedList[editIndex] = { task, taskDescription };
-      setTaskList(updatedList);
+      const updatedTasks = [...tasks];
+      updatedTasks[editIndex] = newTask;
+      setTasks(updatedTasks);
       setEditIndex(null);
     } else {
-      const newTask = { task, taskDescription };
-      setTaskList([...taskList, newTask]);
+      setTasks([...tasks, newTask]);
     }
 
-    localStorage.setItem(
-      "taskList",
-      JSON.stringify([...taskList, { task, taskDescription }])
-    );
-
-    setTask("");
-    setTaskDescription("");
+    // Reset the form
+    setTaskTitle("");
+    setDueDate("");
+    setIsCompleted(false);
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
-    setTask(taskList[index].task);
-    setTaskDescription(taskList[index].taskDescription);
+    setTaskTitle(tasks[index].title);
+    setDueDate(tasks[index].dueDate);
+    setIsCompleted(tasks[index].isCompleted);
   };
 
   const handleDelete = (index) => {
-    const updatedList = [...taskList];
-    updatedList.splice(index, 1);
-    setTaskList(updatedList);
-    localStorage.setItem("taskList", JSON.stringify(updatedList));
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
+  };
+
+  const toggleCompletion = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].isCompleted = !updatedTasks[index].isCompleted;
+    setTasks(updatedTasks);
   };
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="page-background task-page">
       <Hero>
-        <h1 className="animate__animated animate__backInLeft ">
-          Welcome to Your Task List!
-        </h1>
+        <h1 className="animate__animated animate__rubberBand">Manage Your Tasks</h1>
       </Hero>
-      <Container style={{ backgroundColor: "#deb887" }}>
-        <Row>
-          <Col size="md-6">
-            <h2
-              style={{
-                textAlign: "center",
-                backgroundColor: "#deb887",
-                borderRadius: "5px",
-              }}
-            >
-              Add/Edit Task:
-            </h2>
-            <div className="form-group">
-              <label style={{ fontSize: "12" }} htmlFor="taskInput">
-                Task:
-              </label>
-              <input
-                style={{ fontSize: "12" }}
-                type="text"
-                className="form-control"
-                id="taskInput"
-                value={task}
-                onChange={(e) => setTask(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="taskDescriptionInput">Task Description:</label>
-              <textarea
-                className="form-control"
-                id="taskDescriptionInput"
-                rows="3"
-                value={taskDescription}
-                onChange={(e) => setTaskDescription(e.target.value)}
-              ></textarea>
-            </div>
-            <span onClick={handleSave} className="addEntry-button">
-              Add Entry <FaPlusCircle className="mb-1" />
-            </span>
-          </Col>
-          <Col size="md-6">
-            <h2
-              style={{
-                textAlign: "center",
-                backgroundColor: "#deb887",
-                borderRadius: "5px",
-              }}
-            >
-              Task List:
-            </h2>
-            <ul className="list-group">
-              {taskList.map((taskItem, index) => (
-                <ListItem
-                  key={index}
-                  taskItem={taskItem}
-                  index={index}
-                  handleEdit={handleEdit}
-                  handleDelete={handleDelete}
-                />
-              ))}
-            </ul>
-          </Col>
-        </Row>
-      </Container>
+      <div className="container">
+        <div className="content">
+          <Container>
+            <Row>
+              <Col md={10}>
+                <div className="entry-form">
+                  <h4 className="heading">Tasks</h4>
+                  <form onSubmit={handleFormSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="taskTitle">Task</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        id="taskTitle"
+                        value={taskTitle}
+                        onChange={(e) => setTaskTitle(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="dueDate">Due Date</label>
+                      <input
+                        className="form-control"
+                        type="date"
+                        id="dueDate"
+                        value={dueDate}
+                        onChange={(e) => setDueDate(e.target.value)}
+                      />
+                    </div>
+                    <button type="submit" className="add-task-button">
+                      {editIndex !== null ? "Update Task" : "Add Task"} <FaPlusCircle />
+                    </button>
+                  </form>
+                </div>
+              </Col>
+              <Col md={18}>
+                <div className="entry-list-container">
+                  <h4 className="heading">Task List</h4>
+                  <div className="table-responsive">
+                    <table className="table table-striped table-bordered">
+                      <thead className="thead-dark">
+                        <tr>
+                          <th className="heading">Task</th>
+                          <th className="heading">Due Date</th>
+                          <th className="heading">Status</th>
+                          <th className="heading">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {tasks.map((task, index) => (
+                          <tr key={index} className={task.isCompleted ? "completed-task" : ""}>
+                            <td>{task.title}</td>
+                            <td>{task.dueDate}</td>
+                            <td>{task.isCompleted ? "Completed" : "Pending"}</td>
+                            <td>
+                              <div className="button-container">
+                                <button
+                                  type="button"
+                                  className="complete-button"
+                                  onClick={() => toggleCompletion(index)}
+                                >
+                                  <FaCheck />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="edit-button"
+                                  onClick={() => handleEdit(index)}
+                                >
+                                  <FaEdit />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="delete-button"
+                                  onClick={() => handleDelete(index)}
+                                >
+                                  <FaTrashAlt />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default Task;
+export default Tasks;

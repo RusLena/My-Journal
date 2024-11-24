@@ -1,33 +1,23 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { FaTrashAlt, FaPlusCircle } from "react-icons/fa";
-import Hero from "../components/Hero";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import Col from "../components/Col";
-import "../index.css";
-import "animate.css";
-import background from "../assets/exerciseBackground.jpeg";
+import Hero from "../components/Hero/Hero";
+import { Container, Row, Col } from "react-bootstrap";
+import "../main.css"; 
 
-function WorkoutTrackerApp() {
+function Exercise() {
   function UseLocalStorage(key, initialValue) {
-    // State to store our value
     const [value, setValue] = useState(() => {
-      // Retrieve the value from local storage if it exists
       const storedValue = localStorage.getItem(key);
-      // Parse and return stored JSON value, or return initialValue
       return storedValue ? JSON.parse(storedValue) : initialValue;
     });
 
-    // Update local storage whenever the value changes
     useEffect(() => {
       localStorage.setItem(key, JSON.stringify(value));
     }, [key, value]);
 
-    // Return the value and a function to update it
     return [value, setValue];
   }
-  // Use the custom hook to manage the "workout-tracker-entries" data in local storage
+
   const [entries, setEntries] = UseLocalStorage("workout-tracker-entries", []);
 
   const addEntry = (data) => {
@@ -46,135 +36,121 @@ function WorkoutTrackerApp() {
     setEntries(updatedEntries);
   };
 
-  const addRow = (data, index) => {
-    return (
-      <tr key={index} className="tracker__row">
-        <td>
-          <input
-            type="date"
-            className="tracker__date"
-            value={data.date}
-            onChange={(e) => {
-              const newDate = e.target.value;
-              updateEntry(index, { ...data, date: newDate });
-            }}
-          />
-        </td>
-        <td>
-          <select
-            value={data.workout}
-            onChange={(e) => {
-              const newWorkout = e.target.value;
-              updateEntry(index, { ...data, workout: newWorkout });
-            }}
-          >
-            <option value="walking">Walking</option>
-            <option value="running">Running</option>
-            <option value="outdoor-cycling">Outdoor Cycling</option>
-            <option value="indoor-cycling">Indoor Cycling</option>
-            <option value="swimming">Swimming</option>
-            <option value="yoga">Yoga</option>
-          </select>
-        </td>
-        <td>
-          <input
-            style={{ width: "60px" }}
-            type="number"
-            value={data.duration}
-            onChange={(e) => {
-              const newDuration = e.target.value;
-              updateEntry(index, { ...data, duration: newDuration });
-            }}
-          />
-          <span> minutes</span>
-        </td>
-        <td>
-          <input
-            style={{ width: "60px" }}
-            type="number"
-            value={data.distance}
-            onChange={(e) => {
-              const newDistance = e.target.value;
-              updateEntry(index, { ...data, distance: newDistance });
-            }}
-          />
-          <span> miles</span>
-        </td>
-        <td>
-          <button
-            type="button"
-            className="delete-button"
-            onClick={() => deleteEntry(index)}
-          >
-            <FaTrashAlt />
-          </button>
-        </td>
-      </tr>
-    );
-  };
+  const addRow = (data, index) => (
+    <tr key={index}>
+      <td>
+        <input
+          type="date"
+          className="form-control"
+          value={data.date}
+          onChange={(e) => updateEntry(index, { ...data, date: e.target.value })}
+        />
+      </td>
+      <td>
+        <select
+          className="form-control"
+          value={data.workout}
+          onChange={(e) => updateEntry(index, { ...data, workout: e.target.value })}
+        >
+          <option value="walking">Walking</option>
+          <option value="running">Running</option>
+          <option value="outdoor-cycling">Outdoor Cycling</option>
+          <option value="indoor-cycling">Indoor Cycling</option>
+          <option value="swimming">Swimming</option>
+          <option value="yoga">Yoga</option>
+        </select>
+      </td>
+      <td>
+        <input
+          className="form-control"
+          type="number"
+          value={data.duration}
+          onChange={(e) => updateEntry(index, { ...data, duration: e.target.value })}
+        />
+        <span> minutes</span>
+      </td>
+      <td>
+        <input
+          className="form-control"
+          type="number"
+          value={data.distance}
+          onChange={(e) => updateEntry(index, { ...data, distance: e.target.value })}
+        />
+        <span> miles</span>
+      </td>
+      <td>
+        <button
+          type="button"
+          className="delete-button"
+          onClick={() => deleteEntry(index)}
+        >
+          <FaTrashAlt />
+        </button>
+      </td>
+    </tr>
+  );
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="page-background exercise-page">
       <Hero>
         <h1 className="animate__animated animate__backInRight">
-          Welcome to Your personal Exercise Tracker!
+          Track Your Exercise!
         </h1>
       </Hero>
+      <div className="container">
+      <div className="content">
       <Container>
         <Row>
-          <Col size="md-12">
-            <table className="table table-danger flex" >
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Workout</th>
-                  <th>Duration</th>
-                  <th>Distance</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody className="table-warning">
-                {entries.map((entry, index) => addRow(entry, index))}
-              </tbody>
-              <tbody >
-                <tr className="table-primary" >
-                  <td colSpan="12">
-                    <span
-                      className="addEntry-button"
-                      onClick={() => {
-                        const date = new Date();
-                        const year = date.getFullYear();
-                        const month = (date.getMonth() + 1)
-                          .toString()
-                          .padStart(2, "0");
-                        const day = date.getDate().toString().padStart(2, "0");
-                        addEntry({
-                          date: `${year}-${month}-${day}`,
-                          workout: "walking",
-                          duration: 30,
-                          distance: 2,
-                        });
-                      }}
-                    >
-                      Add Entry <FaPlusCircle className="mb-1" />
-                    </span>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+        <Col md={12}>
+            <div className="entry-form">
+              <h4 className="heading">Add New Workout</h4>
+              <button
+                className="add-entry-button"
+                onClick={() => {
+                  const date = new Date();
+                  const year = date.getFullYear();
+                  const month = (date.getMonth() + 1).toString().padStart(2, "0");
+                  const day = date.getDate().toString().padStart(2, "0");
+                  addEntry({
+                    date: `${year}-${month}-${day}`,
+                    workout: "walking",
+                    duration: 30,
+                    distance: 2,
+                  });
+                }}
+              >
+                Add Entry <FaPlusCircle />
+              </button>
+            </div>
+          </Col>
+          <Col md={12}>
+            <div className="entry-list-container">
+              <h4 className="heading">Workouts List</h4>
+              <div className="table-responsive">
+                <table className="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Date</th>
+                      <th>Workout</th>
+                      <th>Duration</th>
+                      <th>Distance</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {entries.map((entry, index) => addRow(entry, index))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
     </div>
+    </div>
+    </div>
   );
+  
 }
 
-export default WorkoutTrackerApp;
+export default Exercise;

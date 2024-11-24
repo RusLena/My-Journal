@@ -1,0 +1,5 @@
+/* in your global CSS (e.g., style.css) */
+:root {
+    --animate-duration: 2s;
+  }
+  

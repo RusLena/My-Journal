@@ -1,14 +1,12 @@
-import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import './style.css';
-
 
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg sticky-top navbar-light bg-light">
       <div className="container-fluid">
         <Link className="navbar-brand" to="/">
-         Personal Website
+          Personal Website
         </Link>
         <button
           className="navbar-toggler"
@@ -30,6 +28,7 @@ function Navbar() {
                 className={({ isActive }) =>
                   isActive ? 'nav-link active' : 'nav-link'
                 }
+                aria-label="Go to Journal page"
               >
                 Journal
               </NavLink>
@@ -40,6 +39,7 @@ function Navbar() {
                 className={({ isActive }) =>
                   isActive ? 'nav-link active' : 'nav-link'
                 }
+                aria-label="Go to Shopping page"
               >
                 Shopping
               </NavLink>
@@ -50,6 +50,7 @@ function Navbar() {
                 className={({ isActive }) =>
                   isActive ? 'nav-link active' : 'nav-link'
                 }
+                aria-label="Go to Tasks page"
               >
                 Tasks
               </NavLink>
@@ -61,17 +62,19 @@ function Navbar() {
                 className={({ isActive }) =>
                   isActive ? 'nav-link active' : 'nav-link'
                 }
+                aria-label="Go to Exercise page"
               >
                 Exercise
               </NavLink>
-              </li>
-              <li className="nav-item">
+            </li>
+            <li className="nav-item">
               <NavLink
                 to="/food"
                 end
                 className={({ isActive }) =>
                   isActive ? 'nav-link active' : 'nav-link'
                 }
+                aria-label="Go to Food page"
               >
                 Food
               </NavLink>

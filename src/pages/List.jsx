@@ -1,162 +1,322 @@
-import React, { useState, useEffect } from "react";
-import { FaTrashAlt, FaPlusCircle } from "react-icons/fa";
-import Hero from "../components/Hero";
-import Container from "../components/Container";
-import Row from "../components/Row";
-import Col from "../components/Col";
-import background from "../assets/shoppingListStoreBackground.jpeg";
+import { useState, useEffect } from "react";
+import Hero from "../components/Hero/Hero";
+import { Container, Row, Col } from "react-bootstrap";
+import { FaPlusCircle, FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import "../main.css";
 import "animate.css";
 
-function List() {
-  const [store, setStore] = useState("");
-  const [foodType, setFoodType] = useState("");
+function Shopping() {
+  const localStorageKey = "shoppingList";
+
+  const [items, setItems] = useState(() => {
+    const storedItems = localStorage.getItem(localStorageKey);
+    try {
+      return storedItems ? JSON.parse(storedItems) : [];
+    } catch (error) {
+      console.error("Failed to parse local storage data:", error);
+      return [];
+    }
+  });
+
+  const [editIndex, setEditIndex] = useState(null);
+  const [itemName, setItemName] = useState("");
   const [quantity, setQuantity] = useState("");
-  const [budget, setBudget] = useState("");
-  const [shoppingList, setShoppingList] = useState([]);
+  const [category, setCategory] = useState(""); // Dropdown for categories
+  const [price, setPrice] = useState("");
+  const [store, setStore] = useState(""); // Store dropdown
+  const [customStore, setCustomStore] = useState(""); // For "Other" store input
+  const [customCategory, setCustomCategory] = useState(""); // For "Other" category input
+  const [isPurchased, setIsPurchased] = useState(false);
+
+  const stores = ["Other", 
+    "Asda",
+    "Aldi",
+    "Lidl",
+    "Morrisons",
+    "Sainsbury's",
+    "Tesco",
+    "Waitrose",
+    "Clarks",
+    "H&M",
+    "Marks & Spencer",
+    "Next",
+    "Primark",
+    "River Island",
+    "Sports Direct",
+    "Zara",
+    "French Connection",
+    "FatFace",
+    "Topshop",
+    "Argos",
+    "Currys",
+    "John Lewis",
+    "PC World",
+    "Dunelm",
+    "Homebase",
+    "IKEA",
+    "B&Q",
+    "Screwfix",
+    "Toolstation",
+    "Boots",
+    "Superdrug",
+    "The Body Shop",
+    "Amazon",
+    "Wilko",
+    "Selfridges",
+    "Harrods",
+    "Harvey Nichols",
+  ];
+  const categories = ["Other", "Groceries", "Electronics", "Clothing", "Furniture", "Home Improvement", "Health & Beauty"];
 
   useEffect(() => {
-    // Load saved shopping list from local storage on component mount
-    const savedShoppingList = JSON.parse(localStorage.getItem("shoppingList"));
-    if (savedShoppingList) {
-      setShoppingList(savedShoppingList);
+    localStorage.setItem(localStorageKey, JSON.stringify(items));
+  }, [items]);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+
+    // Save the custom store if "Other" is selected, otherwise use the selected store
+    const storeToSave = store === "Other" ? customStore : store;
+    const categoryToSave = category === "Other" ? customCategory : category;
+
+    const newItem = { itemName, quantity: Number(quantity), category: categoryToSave, price: Number(price), store: storeToSave, isPurchased };
+
+    if (editIndex !== null) {
+      const updatedItems = [...items];
+      updatedItems[editIndex] = newItem;
+      setItems(updatedItems);
+      setEditIndex(null);
+    } else {
+      setItems([...items, newItem]);
     }
-  }, []);
 
-  const handleSave = () => {
-    // Add new shopping item to the list
-    const newItem = {
-      store: store,
-      foodType: foodType,
-      quantity: quantity,
-      budget: budget,
-    };
-
-    // Save updated shopping list to local storage whenever it changes
-    //       localStorage.setItem("shoppingList", JSON.stringify([...shoppingList, newItem]));
-    // setShoppingList([...shoppingList, newItem]);
-    const updatedList = [...shoppingList, newItem];
-    localStorage.setItem("shoppingList", JSON.stringify(updatedList));
-    setShoppingList(updatedList);
-
-    // Clear input fields after saving
-    setStore("");
-    setFoodType("");
+    // Reset the form
+    setItemName("");
     setQuantity("");
-    setBudget("");
+    setCategory("");
+    setPrice("");
+    setStore("");
+    setCustomStore("");
+    setCustomCategory("");
+    setIsPurchased(false);
+  };
+
+  const handleEdit = (index) => {
+    const item = items[index];
+    setEditIndex(index);
+    setItemName(item.itemName);
+    setQuantity(item.quantity);
+    setCategory(item.category);
+    setPrice(item.price);
+    setStore(item.store);
+    setIsPurchased(item.isPurchased);
+
+    // If the store is custom, set it to "Other" and fill the custom field
+    if (!stores.includes(item.store)) {
+      setStore("Other");
+      setCustomStore(item.store);
+    }
+
+    // If the category is custom, set it to "Other" and fill the custom field
+    if (item.category === "Other") {
+      setCategory("Other");
+      setCustomCategory(item.category);
+    }
   };
 
   const handleDelete = (index) => {
-    // Remove item from the list
-    const updatedList = [...shoppingList];
-    updatedList.splice(index, 1);
-    localStorage.setItem("shoppingList", JSON.stringify(updatedList));
-    setShoppingList(updatedList);
+    const updatedItems = items.filter((_, i) => i !== index);
+    setItems(updatedItems);
   };
 
+  const togglePurchased = (index) => {
+    const updatedItems = [...items];
+    updatedItems[index].isPurchased = !updatedItems[index].isPurchased;
+    setItems(updatedItems);
+  };
+
+  const handlePriceChange = (value) => {
+    const numericValue = Math.max(0, Number(value)); // Ensure no negative values
+    setPrice(numericValue);
+  };
+
+  const handleQuantityChange = (value) => {
+    const numericValue = Math.max(0, Number(value)); // Ensure no negative values
+    setQuantity(numericValue);
+  };
+
+  // Calculate totals
+  const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   return (
-    <div
-      style={{
-        backgroundImage: `url(${background})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-        minHeight: "100vh",
-      }}
-    >
+    <div className="page-background list-page">
       <Hero>
-        <h1 className="animate__animated animate__backInUp">
-          Welcome to Your personal Shopping List!
-        </h1>
+        <h1 className="animate__animated animate__rubberBand">Shopping List</h1>
       </Hero>
-      <Container style={{ backgroundColor: "#deb887" }}>
-        <Row>
-          <Col size="md-12">
-            <h2
-              style={{
-                textAlign: "center",
-              }}
-            >
-              Add Shopping Item:
-            </h2>
-            <div className="form-group">
-              <label htmlFor="storeInput">Store:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="storeInput"
-                value={store}
-                onChange={(e) => setStore(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="foodTypeInput">
-                Type of Food/Item of Clothing:
-              </label>
-              <input
-                type="text"
-                className="form-control"
-                id="foodTypeInput"
-                value={foodType}
-                onChange={(e) => setFoodType(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="quantityInput">Quantity:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="quantityInput"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label htmlFor="budgetInput">Budget:</label>
-              <input
-                type="text"
-                className="form-control"
-                id="budgetInput"
-                value={budget}
-                onChange={(e) => setBudget(e.target.value)}
-              />
-            </div>
-            <div>
-              <span className="addEntry-button" onClick={handleSave}>
-                Add Entry <FaPlusCircle className="mb-1" />
-              </span>
-            </div>
-          </Col>
-        </Row>
-        <Row>
-          <Col size="md-12">
-            <h2 style={{ marginTop: "10px", textAlign: "center" }}>
-              Shopping List:
-            </h2>
-            <ul className="list-group">
-              {shoppingList.map((item, index) => (
-                <li
-                  key={index}
-                  className="list-group-item d-flex justify-content-between align-items-center"
-                >
-                  <div>
-                    <strong>{item.store}</strong> - {item.foodType}, Quantity:{" "}
-                    {item.quantity}, Budget: {item.budget}
+      <div className="container">
+        <div className="content">
+          <Container>
+            <Row>
+              <Col md={10}>
+                <div className="entry-form">
+                  <h4 className="heading">Add Items</h4>
+                  <form onSubmit={handleFormSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="itemName">Item</label>
+                      <input
+                        className="form-control"
+                        type="text"
+                        id="itemName"
+                        value={itemName}
+                        onChange={(e) => setItemName(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="quantity">Quantity</label>
+                      <input
+                        className="form-control"
+                        type="number"
+                        id="quantity"
+                        value={quantity}
+                        onChange={(e) => handleQuantityChange(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="category">Category</label>
+                      <select
+                        className="form-control"
+                        id="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
+                      >
+                        <option value="">Select a Category</option>
+                        {categories.map((cat) => (
+                          <option key={cat} value={cat}>
+                            {cat}
+                          </option>
+                        ))}
+                      </select>
+                      {category === "Other" && (
+                        <input
+                          className="form-control mt-2"
+                          type="text"
+                          placeholder="Specify category name"
+                          value={customCategory}
+                          onChange={(e) => setCustomCategory(e.target.value)}
+                        />
+                      )}
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="price">Price (£)</label>
+                      <input
+                        className="form-control"
+                        type="number"
+                        id="price"
+                        value={price}
+                        onChange={(e) => handlePriceChange(e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label htmlFor="store">Store</label>
+                      <select
+                        className="form-control"
+                        id="store"
+                        value={store}
+                        onChange={(e) => setStore(e.target.value)}
+                      >
+                        {stores.map((storeName) => (
+                          <option key={storeName} value={storeName}>
+                            {storeName}
+                          </option>
+                        ))}
+                      </select>
+                      {store === "Other" && (
+                        <input
+                          className="form-control mt-2"
+                          type="text"
+                          placeholder="Specify store name"
+                          value={customStore}
+                          onChange={(e) => setCustomStore(e.target.value)}
+                        />
+                      )}
+                    </div>
+                    <button type="submit" className="add-item-button">
+                      {editIndex !== null ? "Update Item" : "Add Item"} <FaPlusCircle />
+                    </button>
+                  </form>
+                </div>
+              </Col>
+              <Col md={18}>
+                <div className="entry-list-container">
+                  <h4 className="heading">Shopping List</h4>
+                  <div className="totals">
+                    <p><strong>Total Items:</strong> {totalItems}</p>
+                    <p><strong>Total Price:</strong> £{totalPrice.toFixed(2)}</p>
                   </div>
-                  <button
-                    type="button"
-                    className="delete-button"
-                    onClick={() => handleDelete(index)}
-                  >
-                    <FaTrashAlt className="mb-1" />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </Col>
-        </Row>
-      </Container>
+                  <div className="table-responsive">
+                    <table className="table table-striped table-bordered">
+                      <thead className="thead-dark">
+                        <tr>
+                          <th className="heading">Item</th>
+                          <th className="heading">Quantity</th>
+                          <th className="heading">Category</th>
+                          <th className="heading">Price</th>
+                          <th className="heading">Store</th>
+                          <th className="heading">Status</th>
+                          <th className="heading">Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {items.map((item, index) => (
+                          <tr
+                            key={index}
+                            className={item.isPurchased ? "purchased-item" : ""}
+                          >
+                            <td>{item.itemName}</td>
+                            <td>{item.quantity}</td>
+                            <td>{item.category}</td>
+                            <td>{item.price.toFixed(2)}</td>
+                            <td>{item.store}</td>
+                            <td>{item.isPurchased ? "Purchased" : "Pending"}</td>
+                            <td>
+                              <div className="button-container">
+                                <button
+                                  type="button"
+                                  className="complete-button"
+                                  onClick={() => togglePurchased(index)}
+                                >
+                                  <FaCheck />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="edit-button"
+                                  onClick={() => handleEdit(index)}
+                                >
+                                  <FaEdit />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="delete-button"
+                                  onClick={() => handleDelete(index)}
+                                >
+                                  <FaTrashAlt />
+                                </button>
+                              </div>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </div>
+      </div>
     </div>
   );
 }
 
-export default List;
+export default Shopping;

@@ -1,5 +1,4 @@
-import React from "react";
-
+import PropTypes from 'prop-types';  // Import PropTypes for validation
 import styles from "../ListItem/style.module.css"; // Import CSS module
 import { FaTrashAlt, FaEdit } from "react-icons/fa";
 
@@ -30,5 +29,16 @@ function ListItem({ taskItem, index, handleEdit, handleDelete }) {
     </li>
   );
 }
+
+// Add PropTypes validation
+ListItem.propTypes = {
+  taskItem: PropTypes.shape({
+    task: PropTypes.string.isRequired,
+    taskDescription: PropTypes.string.isRequired
+  }).isRequired,
+  index: PropTypes.number.isRequired,
+  handleEdit: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
+};
 
 export default ListItem;

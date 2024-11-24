@@ -1,6 +1,35 @@
 nav.navbar.navbar-default {
   margin-bottom: 0;
 }
+
+/* Navbar Styling */
 .navbar {
-  background-color: #9CF6F6;
+  background-color: #9a9b9c; 
+}
+
+.nav-link {
+  color: #333; /* Default text color */
+  font-weight: 500;
+  transition: color 0.3s ease; 
+}
+
+.nav-link:hover {
+  color: #333; 
+}
+
+.nav-link.active {
+  color: #333; 
+  font-weight: bold;
+}
+
+.navbar-nav .nav-item {
+  margin-right: 15px; 
+}
+
+.navbar-brand {
+  font-weight: 600!important;
+  color: rgb(73, 7, 7)!important;
+}
+.navbar-toggler:hover {
+  background-color: bisque !important;
 }
