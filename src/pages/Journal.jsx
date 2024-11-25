@@ -3,6 +3,7 @@ import Hero from "../components/Hero/Hero";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { FaPlusCircle, FaTrashAlt, FaEdit } from "react-icons/fa";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import backgroundImage from "../assets/journalBackground.jpg";
 import "../main.css";
 import "animate.css";
 
@@ -69,7 +70,11 @@ function Journal() {
   };
 
   return (
-    <div className="page-background journal-page">
+    <div className="page-background journal-page"
+    style={{
+      backgroundImage: `url(${backgroundImage})`
+    }}
+  >
       <Hero>
         <h1 className="animate__animated animate__rubberBand">Welcome to Your Journal!</h1>
       </Hero>
