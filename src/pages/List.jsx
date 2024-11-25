@@ -157,8 +157,8 @@ function Shopping() {
       <div className="container">
         <div className="content">
           <Container>
-            <Row>
-              <Col md={10}>
+            <Row className="d-flex flex-column flex-md-row">
+              <Col xs={12} md={6} className="entry-form-container">
                 <div className="entry-form">
                   <h4 className="heading">Add Items</h4>
                   <form onSubmit={handleFormSubmit}>
@@ -247,7 +247,7 @@ function Shopping() {
                   </form>
                 </div>
               </Col>
-              <Col md={18}>
+              <Col>
                 <div className="entry-list-container">
                   <h4 className="heading">Shopping List</h4>
                   <div className="totals">

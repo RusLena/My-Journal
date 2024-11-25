@@ -3,13 +3,38 @@ body {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;  
-  color: #333;  
+  background-color: #f4f4f4;
+  color: #333;
   line-height: 1.6;
 }
+
 .navbar-brand {
   color: rgb(73, 7, 7);
 }
+
+/* Global Container for Pages */
+.page-container {
+  margin-top: 2rem;
+}
+
+/* Basic Heading Style */
+h1,
+h2,
+h3,
+h4 {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+.heading {
+  text-align: center;
+}
+
 /* Button Styling - Common Styles */
 button {
   font-size: 16px;
@@ -25,90 +50,15 @@ button:hover {
   background-color: rgb(248, 114, 65);
 }
 
-/* Global Container for Pages */
-.page-container {
-  margin-top: 2rem;
-}
-
-/* Basic Heading Style */
-h1, h2, h3, h4 {
-  font-family: 'Arial', sans-serif;
-  margin: 0;
-  padding: 0;;
-}
-.heading {
-  text-align: center;
-}
-h1 {
-  font-size: 2.5rem;
-}
-
-/* Journal */
-.container {
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
-
-.journal-header {
-  text-align: center;
-  font-size: 2rem;
-  margin-bottom: 2rem;
-  color: #3e4b5b;
-}
-
-.entry-form {
-  margin: 2rem;
-  background-color: bisque;
-  padding: 15px;
-  border-radius: 5px;
-  width: 100%;
-  max-width: 800px;
-}
-
-.entry-list-container {
-  margin-top: 2rem;
-  margin-bottom: 10rem;
-  background-color: bisque; 
-  border-radius: 5px;
-  padding: 1rem;
-  max-width: 100%; 
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.larger-cell {
-  max-width: 300px;  
-  overflow: hidden;  
-  text-overflow: ellipsis; 
-  white-space: nowrap;  
-}
-
-.larger-cell.wrap {
-  white-space: normal;  
-  word-wrap: break-word; 
-}
-
-.table-responsive {
-  overflow-x: auto; 
-}
-
-td {
-  width: 150px;  
-  white-space: nowrap;
-  text-align: center;
-}
-
 .button-container {
   display: flex;
-  justify-content: center; 
-  gap: 1rem; 
+  justify-content: center;
+  gap: 1rem;
 }
-.delete-button, .edit-button, .complete-button  {
+
+.delete-button,
+.edit-button,
+.complete-button {
   background-color: burlywood;
   border: none;
   cursor: pointer;
@@ -117,8 +67,26 @@ td {
   padding: 0.4rem 0.8rem;
 }
 
-.edit-button:hover, .delete-button:hover {
-  background-color: #ff6347; 
+.edit-button:hover,
+.delete-button:hover {
+  background-color: #ff6347;
+}
+
+button.add-entry-button,
+button.add-task-button,
+button.add-item-button {
+  background-color: burlywood;
+  color: #333;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button.add-entry-button:hover,
+button.add-task-button:hover,
+button.add-item-button:hover {
+  background-color: rgb(248, 114, 65);
 }
 
 /* General Page Background */
@@ -150,7 +118,77 @@ td {
   background-image: url('/src/assets/shoppingListStoreBackground.jpg');
 }
 
+/* Journal */
+.container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.journal-header {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #3e4b5b;
+}
+
+.entry-form {
+  margin: 0;
+  background-color: bisque;
+  padding: 15px;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 800px;
+  flex-grow: 1;
+}
+
+.entry-list-container {
+  margin-top: 2rem;
+  background-color: bisque;
+  border-radius: 5px;
+  padding: 1rem;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.larger-cell {
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.larger-cell.wrap {
+  white-space: normal;
+  word-wrap: break-word;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+td {
+  width: 150px;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.row {
+  display: flex;
+  flex-direction: column; /* Stack vertically by default */
+  gap: 2rem; /* Space between the form and entry list */
+}
+@media (min-width: 768px) {
+  .row {
+    flex-direction: row; /* Stack horizontally on medium screens and up */
+    gap: 2rem;
+  }
+}
 /* General container styling for the task page */
 .task-container {
   background-color: rgb(231, 219, 197);
@@ -169,17 +207,14 @@ td {
   margin-bottom: 1.5rem;
 }
 
-input[type="text"], textarea {
+input[type="text"],
+textarea {
   font-size: 1rem;
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
   width: 100%;
 }
-
-
-
-
 
 .list-group {
   list-style-type: none;
@@ -204,26 +239,14 @@ input[type="text"], textarea {
   margin-bottom: 2rem;
 }
 
-input[type="text"], input[type="number"] {
+input[type="text"],
+input[type="number"] {
   width: 100%;
   padding: 12px;
   border: 1px solid #ddd;
   border-radius: 5px;
   margin-bottom: 1rem;
   background-color: #f8f9fa;
-}
-
-button.add-entry-button,  button.add-task-button, button.add-item-button {
-  background-color: burlywood;
-  color: #333;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-}
-
-button.add-entry-button:hover, button.add-task-button:hover, button.add-item-button:hover {
-  background-color: rgb(248, 114, 65);
 }
 
 /* List Styling */
@@ -243,6 +266,58 @@ button.add-entry-button:hover, button.add-task-button:hover, button.add-item-but
   align-items: center;
 }
 
+.clickable-cell {
+  cursor: pointer;
+  color: bisque;
+  text-decoration: underline;
+}
+
+.clickable-cell:hover {
+  text-decoration: none;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  padding: 10px;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.link {
+  margin: 0 10px;
+  color: #f4f4f4;
+  text-decoration: none;
+}
+
+.link:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive Layout */
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .entry-form {
+    padding: 10px;
+  }
+
+  .entry-list-container {
+    padding: 10px;
+  }
+
+  .social-links {
+    flex-direction: column;
+  }
+
+  .link {
+    margin-bottom: 10px;
+  }
+}
 
 /* Page Not Found Styles */
 .page-not-found-container {
@@ -250,9 +325,9 @@ button.add-entry-button:hover, button.add-task-button:hover, button.add-item-but
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh; 
+  min-height: 100vh;
   text-align: center;
-  background-color: #f8f9fa; 
+  background-color: #f8f9fa;
 }
 
 .error-icon {
@@ -262,7 +337,7 @@ button.add-entry-button:hover, button.add-task-button:hover, button.add-item-but
 }
 
 .error-image img {
-  max-width: 100%; 
+  max-width: 100%;
   height: auto;
 }
 
@@ -271,7 +346,3 @@ button.add-entry-button:hover, button.add-task-button:hover, button.add-item-but
   font-weight: bold;
   margin-top: 20px;
 }
-
-
-
-

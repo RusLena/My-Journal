@@ -73,7 +73,7 @@ function Tasks() {
         <div className="content">
           <Container>
             <Row>
-              <Col md={10}>
+              <Col>
                 <div className="entry-form">
                   <h4 className="heading">Tasks</h4>
                   <form onSubmit={handleFormSubmit}>
@@ -103,7 +103,7 @@ function Tasks() {
                   </form>
                 </div>
               </Col>
-              <Col md={18}>
+              <Col>
                 <div className="entry-list-container">
                   <h4 className="heading">Task List</h4>
                   <div className="table-responsive">

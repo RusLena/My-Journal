@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Hero from "../components/Hero/Hero";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { FaPlusCircle, FaTrashAlt, FaEdit } from "react-icons/fa";
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
 import "../main.css";
 import "animate.css";
 
@@ -58,6 +59,7 @@ function Journal() {
     const updatedEntries = entries.filter((_, i) => i !== index);
     setEntries(updatedEntries);
   };
+  
   const handleViewContent = (entry) => {
     setViewEntry(entry); 
   };
@@ -65,6 +67,7 @@ function Journal() {
   const handleCloseModal = () => {
     setViewEntry(null); 
   };
+
   return (
     <div className="page-background journal-page">
       <Hero>
@@ -73,8 +76,8 @@ function Journal() {
       <div className="container">
         <div className="content">
           <Container>
-            <Row>
-              <Col md={10}>
+            <Row className="d-flex flex-column flex-md-row">
+              <Col xs={12} md={6} className="entry-form-container">
                 <div className="entry-form">
                   <h4 className="heading">Journal Entries</h4>
                   <form onSubmit={handleFormSubmit}>
@@ -95,7 +98,6 @@ function Journal() {
                         id="content"
                         value={content}
                         onChange={(e) => setContent(e.target.value)}
-                        
                       />
                     </div>
                     <div className="form-group">
@@ -114,10 +116,10 @@ function Journal() {
                   </form>
                 </div>
               </Col>
-              <Col md={18}>
+              <Col>
                 <div className="entry-list-container">
-                <h4 className="heading">Journal List</h4>
-                <div className="table-responsive">
+                  <h4 className="heading">Journal List</h4>
+                  <div className="table-responsive">
                     <table className="table table-striped table-bordered">
                       <thead className="thead-dark">
                         <tr>
@@ -139,21 +141,21 @@ function Journal() {
                                 : entry.content}</td>
                             <td>{entry.date}</td> 
                             <td>
-                            <div className="button-container">
-                              <button
-                                type="button"
-                                className="edit-button"
-                                onClick={() => handleEdit(index)}
-                              >
-                                <FaEdit />
-                              </button>
-                              <button
-                                type="button"
-                                className="delete-button"
-                                onClick={() => handleDelete(index)}
-                              >
-                                <FaTrashAlt />
-                              </button>
+                              <div className="button-container">
+                                <button
+                                  type="button"
+                                  className="edit-button"
+                                  onClick={() => handleEdit(index)}
+                                >
+                                  <FaEdit />
+                                </button>
+                                <button
+                                  type="button"
+                                  className="delete-button"
+                                  onClick={() => handleDelete(index)}
+                                >
+                                  <FaTrashAlt />
+                                </button>
                               </div>
                             </td>
                           </tr>
@@ -161,7 +163,7 @@ function Journal() {
                       </tbody>
                     </table>
                   </div>
-                  </div>
+                </div>
               </Col>
             </Row>
           </Container>
@@ -185,6 +187,24 @@ function Journal() {
           </Modal.Footer>
         </Modal>
       )}
+
+      {/* Social Media Links */}
+      <div className="social-media-section">
+        <div className="social-links">
+          <a className="link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+            <FaFacebook size={30} />
+          </a>
+          <a className="link" href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+            <FaTwitter size={30} />
+          </a>
+          <a className="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+            <FaInstagram size={30} />
+          </a>
+          <a className="link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin size={30} />
+          </a>
+        </div>
+      </div>
     </div>
   );
 }

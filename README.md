@@ -1,5 +1,13 @@
 # Personal Website 
 
+# Updates
+
+This project was initially created as part of a group bootcamp assignment. I forked the original repository and rewrote the code for all pages to improve consistency across the application. Additionally, I enhanced the functionality of the entry forms, adding new features to make the user experience smoother and more intuitive.
+Key Updates:
+
+    Refactored and redesigned all pages to create a more cohesive look and feel.
+    Improved entry forms by adding extra functionality, such as better validation and user interactions.
+    Updated styling and backgrounds to align with a more modern and clean design.
 
 ## Description
 
@@ -16,22 +24,26 @@ This is a simple web application designed to help users keep track of their dail
 
 ## Table of Contents
 
-- [Description](#description)
-- [Usage](#usage)
-- [Instructions](#instructions)
-- [Technologies](#technologies)
-- [Credits](#credits)
-- [License](#license)
+- [Personal Website](#personal-website)
+- [Updates](#updates)
+  - [Description](#description)
+  - [Table of Contents](#table-of-contents)
+  - [Usage](#usage)
+  - [Instructions](#instructions)
+  - [Technologies](#technologies)
+  - [Credits](#credits)
+  - [License](#license)
 
 
 ## Usage
-
-To use the Personal Website just go to the page <a href="https://g16-personal-website.netlify.app/"> here</a> !
+** 
+To use the Personal Website go to the page:
+ Updated App:
+ Original App: https://g16-personal-website.netlify.app/
 
 ![Screenshot of Personal Journal.](/src/assets/journal.png)
 ![Screenshot of Shopping list.](/src/assets/shopping.png)
 ![Screenshot of Task list.](/src/assets/tasks.png)
-![Screenshot of Exercise tracker .](/src/assets/exercise.png)
 ![Screenshot of Food tracker ](/src/assets/food.png)
 ![Screenshot of Custom 404 page ](/src/assets/404NotFound.png)
 
@@ -57,12 +69,6 @@ Open the website and you can add entries on different pages of the presonal webs
 
 ## License
 
-MIT License
+No Licence
 
 Copyright (c) 2024 
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
