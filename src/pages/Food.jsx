@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { FaTrashAlt, FaPlusCircle } from "react-icons/fa";
 import Hero from "../components/Hero/Hero";
+import backgroundImage from "../assets/shoppingListBackground.jpg";
 import "../main.css";
 import { Container, Row, Col } from "react-bootstrap";
 
@@ -165,7 +166,11 @@ function Food() {
   };
 
   return (
-    <div className="page-background food-page">
+    <div className="page-background food-page"
+    style={{
+      backgroundImage: `url(${backgroundImage})`
+    }}
+  >
       <Hero>
         <h1 className="animate__animated animate__backInLeft">
           Your Food Tracker!

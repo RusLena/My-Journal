@@ -3,6 +3,7 @@ import Hero from "../components/Hero/Hero";
 import { Modal } from "react-bootstrap";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaPlusCircle, FaTrashAlt, FaEdit } from "react-icons/fa";
+import backgroundImage from "../assets/exerciseBackground.jpg";
 import "../main.css";
 import "animate.css";
 
@@ -106,7 +107,11 @@ function Exercise() {
   };
 
   return (
-    <div className="page-background exercise-page">
+    <div className="page-background exercise-page"
+    style={{
+      backgroundImage: `url(${backgroundImage})`
+    }}
+  >
       <Hero>
         <h1 className="animate__animated animate__rubberBand">
           Track Your Exercise!

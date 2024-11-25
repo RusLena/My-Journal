@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Hero from "../components/Hero/Hero";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaPlusCircle, FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import backgroundImage from "../assets/notesBackground.jpg";
 import "../main.css";
 import "animate.css";
 
@@ -65,7 +66,11 @@ function Tasks() {
   };
 
   return (
-    <div className="page-background task-page">
+    <div className="page-background tasks-page"
+    style={{
+      backgroundImage: `url(${backgroundImage})`
+    }}
+  >
       <Hero>
         <h1 className="animate__animated animate__rubberBand">Manage Your Tasks</h1>
       </Hero>

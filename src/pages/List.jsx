@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Hero from "../components/Hero/Hero";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaPlusCircle, FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import backgroundImage from "../assets/shoppingListStoreBackground.jpg";
 import "../main.css";
 import "animate.css";
 
@@ -150,7 +151,11 @@ function Shopping() {
   const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
-    <div className="page-background list-page">
+    <div className="page-background list-page"
+    style={{
+      backgroundImage: `url(${backgroundImage})`
+    }}
+  >
       <Hero>
         <h1 className="animate__animated animate__rubberBand">Shopping List</h1>
       </Hero>
