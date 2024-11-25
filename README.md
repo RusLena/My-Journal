@@ -36,9 +36,11 @@ This is a simple web application designed to help users keep track of their dail
 
 
 ## Usage
-** 
-To use the Personal Website go to the page:
- Updated App:
+
+** To use the Personal Website go to the page:
+
+ Updated App: https://my-personal-journal.netlify.app/
+ 
  Original App: https://g16-personal-website.netlify.app/
 
 ![Screenshot of Personal Journal.](/src/assets/journal.png)
