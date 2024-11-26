@@ -82,7 +82,7 @@ function Journal() {
         <div className="content">
           <Container>
             <Row className="d-flex flex-column flex-md-row">
-              <Col xs={12} md={6} className="entry-form-container">
+              <Col xs={12} md={12} className="entry-form-container">
                 <div className="entry-form">
                   <h4 className="heading">Journal Entries</h4>
                   <form onSubmit={handleFormSubmit}>
@@ -121,7 +121,7 @@ function Journal() {
                   </form>
                 </div>
               </Col>
-              <Col>
+              <Col xs={12} md={12} className="entry-form-container">
                 <div className="entry-list-container">
                   <h4 className="heading">Journal List</h4>
                   <div className="table-responsive">

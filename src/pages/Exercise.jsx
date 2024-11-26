@@ -185,8 +185,8 @@ function Exercise() {
               </Col>
 
               {/* Exercise Entries List */}
-              <Col>
-                <div className="entry-list-container">
+              <Col xs={12} md={12} className="entry-form-container">
+                <div className="entry-form">
                   <h4 className="heading">Exercise List</h4>
                   <div className="table-responsive">
                     <table className="table table-striped table-bordered">
@@ -278,7 +278,7 @@ function Exercise() {
               </Col>
 
               {/* Favorite Links Section */}
-              <Col>
+              <Col xs={12} md={6} className="entry-form-container">
                 <div className="entry-form">
                   <h4 className="heading">Favorite Links</h4>
                   <div className="form-group">

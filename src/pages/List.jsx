@@ -252,7 +252,7 @@ function Shopping() {
                   </form>
                 </div>
               </Col>
-              <Col>
+              <Col xs={12} md={12} className="entry-form-container">
                 <div className="entry-list-container">
                   <h4 className="heading">Shopping List</h4>
                   <div className="totals">

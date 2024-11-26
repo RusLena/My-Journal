@@ -302,7 +302,7 @@ function Food() {
               </form>
             </div>
           </Col>
-          <Col>
+          <Col xs={12} md={6} className="entry-form-container">
             <div className="entry-list-container">
             <div className="table-responsive">
               <h4 className="heading">Food Record</h4>
@@ -334,7 +334,7 @@ function Food() {
           </Col>
 
         {/* Favorite Recipes Section */}     
-            <Col>
+            <Col xs={12} md={6} className="entry-form-container">
               <div className="entry-form">
                 <h4 className="heading">Favorite Recipes</h4>
                 <div className="form-group">

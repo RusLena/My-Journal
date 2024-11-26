@@ -77,8 +77,8 @@ function Tasks() {
       <div className="container">
         <div className="content">
           <Container>
-            <Row>
-              <Col>
+            <Row className="d-flex flex-column flex-md-row">
+              <Col xs={12} md={6} className="entry-form-container">
                 <div className="entry-form">
                   <h4 className="heading">Tasks</h4>
                   <form onSubmit={handleFormSubmit}>
@@ -108,7 +108,7 @@ function Tasks() {
                   </form>
                 </div>
               </Col>
-              <Col>
+              <Col xs={12} md={6} className="entry-form-container">
                 <div className="entry-list-container">
                   <h4 className="heading">Task List</h4>
                   <div className="table-responsive">
