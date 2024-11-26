@@ -172,7 +172,7 @@ function Food() {
     }}
   >
       <Hero>
-        <h1 className="animate__animated animate__backInLeft">
+        <h1 className="animate__animated animate__rubberBand">
           Your Food Tracker!
         </h1>
       </Hero>
@@ -334,49 +334,46 @@ function Food() {
           </Col>
 
         {/* Favorite Recipes Section */}     
-            <Col xs={12} md={6} className="entry-form-container">
-              <div className="entry-form">
-                <h4 className="heading">Favorite Recipes</h4>
-                <div className="form-group">
-                  <label>Add Recipe Link</label>
-                  <div className="input-group">
-                    <input
-                      className="form-control"
-                      type="url"
-                      value={newLink}
-                      placeholder="Enter recipe link"
-                      onChange={(e) => setNewLink(e.target.value)}
-                    />
-                    <button
-                      className="add-entry-button"
-                      onClick={handleAddFavoriteLink}
-                      type="button"
-                    >
-                      Add <FaPlusCircle />
-                    </button>
-                  </div>
-                </div>
-                <ul className="list-group">
-                  {favoriteLinks.map((link, index) => (
-                    <li
-                      key={index}
-                      className="list-group-item d-flex justify-content-between align-items-center"
-                    >
-                      <a href={link} target="_blank" rel="noopener noreferrer">
-                        {link}
-                      </a>
-                      <button
-                        type="button"
-                        className="delete-button"
-                        onClick={() => handleDeleteFavoriteLink(index)}
-                      >
-                        <FaTrashAlt />
-                      </button>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </Col>
+        <Col xs={12} md={6} className="entry-form-container">
+  <div className="entry-form">
+    <h4 className="heading">Favorite Recipes</h4>
+    <div className="form-group">
+      <input
+        className="form-control"
+        type="url"
+        value={newLink}
+        placeholder="Enter recipe link"
+        onChange={(e) => setNewLink(e.target.value)}
+      />
+      <button
+        className="add-entry-button mt-2"
+        onClick={handleAddFavoriteLink}
+        type="button"
+      >
+        Add Link <FaPlusCircle />
+      </button>
+    </div>
+    <ul className="list-group mt-3">
+      {favoriteLinks.map((link, index) => (
+        <li
+          key={index}
+          className="list-group-item d-flex justify-content-between align-items-center"
+        >
+          <a href={link} target="_blank" rel="noopener noreferrer">
+            {link}
+          </a>
+          <button
+            type="button"
+            className="delete-button"
+            onClick={() => handleDeleteFavoriteLink(index)}
+          >
+            <FaTrashAlt />
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</Col>
           </Row>
       </Container>
     </div>

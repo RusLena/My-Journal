@@ -170,6 +170,23 @@ function Journal() {
                   </div>
                 </div>
               </Col>
+              {/* Social Media Links */}
+      <div className="social-media-section">
+        <div className="social-links">
+          <a className="link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
+            <FaFacebook size={30} />
+          </a>
+          <a className="link" href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
+            <FaTwitter size={30} />
+          </a>
+          <a className="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
+            <FaInstagram size={30} />
+          </a>
+          <a className="link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
+            <FaLinkedin size={30} />
+          </a>
+        </div>
+      </div>
             </Row>
           </Container>
         </div>
@@ -193,23 +210,7 @@ function Journal() {
         </Modal>
       )}
 
-      {/* Social Media Links */}
-      <div className="social-media-section">
-        <div className="social-links">
-          <a className="link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-            <FaFacebook size={30} />
-          </a>
-          <a className="link" href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-            <FaTwitter size={30} />
-          </a>
-          <a className="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-            <FaInstagram size={30} />
-          </a>
-          <a className="link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin size={30} />
-          </a>
-        </div>
-      </div>
+      
     </div>
   );
 }

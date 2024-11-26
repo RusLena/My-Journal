@@ -192,11 +192,11 @@ function Exercise() {
                     <table className="table table-striped table-bordered">
                       <thead className="thead-dark">
                         <tr>
-                          <th>Workout Type</th>
+                          <th>Workout</th>
                           <th>Duration</th>
                           <th>Distance</th>
                           <th>Date</th>
-                          <th>Notes</th>
+                          <th>Workout Notes</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
