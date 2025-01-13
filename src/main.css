@@ -294,6 +294,8 @@ textarea {
 }
 .link:hover {
   transform: scale(1.1);
+  transition: transform 0.3s ease;
+  color: rgba(103, 4, 4, 0.81);
 }
 
 /* Page Not Found Styles */
@@ -322,14 +324,17 @@ textarea {
 }
 
 /* Responsive Layout */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .container {
     padding: 2rem;
   }
   .button-container {
-    flex-direction: column;
-    align-items: center; 
+    width: 100%;
     gap: 10px;
+      justify-content: center;
+      align-items: end;
+      gap: 10px;
+      flex-wrap: wrap;
   }
   .button-container button {
     width: 60%;
@@ -338,6 +343,12 @@ textarea {
     max-height: 40px;
     padding: 0.3rem 0.5rem;
   }
+  button.add-entry-button, 
+  button.add-task-button, 
+  button.add-item-button {
+  font-size: 1.6rem;
+  padding: 10px;
+}
   .exercise-list-form-container {
     padding: 5px;
   }
@@ -348,8 +359,22 @@ textarea {
     margin-bottom: 20px;
   }
   .table-responsive, .table td, .table th {
-    font-size: 15px;
+    font-size: 25px;
     padding: auto;
+}
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1.6rem !important;
+  font-weight: 400;
+  line-height: 1.5;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2rem;
 }
 }
 
@@ -381,8 +406,29 @@ textarea {
   .table-responsive, .table td, .table th {
     font-size: 15px;
 }
+.form-control {
+  display: block;
+  width: 100%;
+  padding: .375rem .75rem;
+  font-size: 1rem !important;
+  font-weight: 400;
+  line-height: 1.5;
 }
-
+button.add-entry-button, button.add-task-button, button.add-item-button {
+  font-size: 0.9rem;
+  padding: 5px;
+}
+.row {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.link:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+  color: rgba(103, 4, 4, 0.81);
+}
+}
 @media (max-width: 480px) {
   .table-responsive {
     margin-bottom: 15px;
@@ -392,6 +438,7 @@ textarea {
     gap: 5px;
   }
   .button-container button {
+    width: 100%;
     font-size: 1rem;
     border-radius: 3px;
     padding: 0.3rem 0.5rem;
@@ -402,21 +449,30 @@ textarea {
   .table-responsive, .table td, .table th {
     font-size: 13px;
     text-align:start
-   
+}
+.row {
+  display: flex;
+  flex-direction: column;
+}
+.social-links {
+  gap: 5px;
+  padding-bottom: 50px;
+  margin-top: 0;
+  padding-top: 0;
 }
 }
 
 @media (max-width: 375px) {
   .entry-form-container,
   .exercise-list-form-container {
-    padding: 10px;
+    padding-right: 10px;
     width: 100%;
     box-sizing: border-box;
   }
   .form-control {
     width: 100%;
     margin-bottom: 15px;
-    font-size: 14px;
+    font-size: 0.9rem;
   }
   .add-entry-button {
     width: 50%;
@@ -430,9 +486,6 @@ textarea {
     width: 100%;
     font-size: 12px;
   }
-  .thead-dark th {
-    font-size: 14px;
-  }
   .button-container button {
     margin-bottom: 5px;
     font-size: 1rem;
@@ -442,13 +495,10 @@ textarea {
     max-width: 38px;
     max-height: 38px;
   }
-  .table td,
-  .table th {
-    padding: 5px;
-  }
   .heading {
     font-size: 18px;
     margin-bottom: 10px;
+    padding-top: 20px;
   }
   .favorite-links-list li {
     font-size: 14px;
@@ -463,17 +513,30 @@ textarea {
   }
   .table th,
   .table td {
-    font-size: 10px;
+    font-size: 0.9rem;
     padding: 8px;
+    text-align: center;
   }
   .social-links {
     gap: 5px;
+    padding-bottom: 50px;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  .row {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   img,
   svg {
     vertical-align: middle;
-    height: 0.7em;
-    width: 0.7em;
+    height: 1rem;
+  }
+  .link:hover {
+    transform: scale(1.1);
+    transition: transform 0.3s ease;
+    color: rgba(103, 4, 4, 0.81);
   }
 }
 
