@@ -8,80 +8,104 @@ body {
   line-height: 1.6;
 }
 
-.navbar-brand {
-  color: rgb(120, 5, 5);
-}
-
 /* Global Container for Pages */
 .page-container {
   margin-top: 2rem;
 }
+/* General container styles */
+.container,
+.exercise-list-form-container,
+.task-container,
+.entry-list-container {
+  padding: 10px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-/* Basic Heading Style */
-h1,
-h2,
-h3,
-h4 {
+/* Page background */
+.page-background {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 100vh;
+}
+
+h1,h2,h3,h4 {
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
 }
-
 h1 {
   font-size: 2.5rem;
 }
-
 .heading {
   text-align: center;
 }
 
-/* Button Styling - Common Styles */
-
+/* Button Styling */
 .button-container {
   display: flex;
-  justify-content: center;
-  gap: 1rem;
+justify-content: space-between;
+  align-items: start;
+  gap: 10px; 
+  flex-wrap: wrap; 
 }
-
-.delete-button,
-.edit-button,
-.complete-button {
+.button-container button {
   background-color: burlywood;
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
-  border-radius: 5px;
-  padding: 0.4rem 0.8rem;
+  border-radius: 3px;
+  padding: 0.3rem 0.5rem;
+  min-width: 30px; 
+  max-width: 50px;
 }
-
-.edit-button:hover,
-.delete-button:hover {
+.button-container button:hover {
   background-color: #ff6347;
 }
-
 button.add-entry-button,
 button.add-task-button,
 button.add-item-button {
   background-color: burlywood;
   color: #333;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
+  border-radius: 3px;
   border: none;
   cursor: pointer;
 }
-
 button.add-entry-button:hover,
 button.add-task-button:hover,
 button.add-item-button:hover {
   background-color: rgb(248, 114, 65);
 }
 
-/* General Page Background */
-.page-background {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh;
+.table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+.table-responsive,
+.table td,
+.table th {
+  width: 100%;
+  padding: 10px;
+  text-align: center;
+  border-collapse: collapse;
+}
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Modal button styles */
+.close-modal-button {
+  padding: 8px 16px;
+  background-color: rgb(248, 114, 65);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 /* Journal */
@@ -94,24 +118,66 @@ button.add-item-button:hover {
   align-items: center;
   flex-direction: column;
 }
-
 .journal-header {
   text-align: center;
   font-size: 2rem;
   margin-bottom: 2rem;
   color: #3e4b5b;
 }
+.journal-table {
+  width: 100%;
+  table-layout: auto; /* Columns adjust based on content */
+}
+.journal-table th, .journal-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+.journal-table .heading {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+.journal-table .content {
+  width: 60%; 
+}
+.journal-table .title {
+  width: 20%; 
+}
+.journal-table .date {
+  width: 15%; 
+}
+.journal-table .actions {
+ width: 5%;
+}
+.journal-table td.content {
+  font-size: 0.9rem;
+}
+.journal-table td.title {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+/* Journal Responsive Styling */
+@media (max-width: 768px) {
+  .journal-table th, .journal-table td {
+    padding: 8px;
+  }
+
+  .journal-table td.content {
+    font-size: 0.85rem;
+  }
+}
 
 .entry-form {
-  margin: 0;
+  margin: 0 auto;
   background-color: bisque;
   padding: 15px;
   border-radius: 5px;
   width: 100%;
   max-width: 1200px;
   flex-grow: 1;
+  box-sizing: border-box;
 }
-
 .entry-list-container {
   margin-top: 2rem;
   background-color: bisque;
@@ -128,40 +194,27 @@ button.add-item-button:hover {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
 .larger-cell.wrap {
   white-space: normal;
   word-wrap: break-word;
 }
 
-.table-responsive {
-  overflow-x: auto;
-}
-
 td {
   width: 150px;
   white-space: nowrap;
-  text-align: center;
 }
-
 .row {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   justify-content: center;
-  gap: 2rem; 
+  gap: 2rem;
 }
-@media (min-width: 768px) {
-  .row {
-    flex-direction: row; /* Stack horizontally on medium screens and up */
-    gap: 2rem;
-  }
-}
-/* General container styling for the task page */
+
+/* Task page */
 .task-container {
   background-color: rgb(231, 219, 197);
   padding: 20px;
 }
-
 .task-header {
   text-align: center;
   background-color: rgb(231, 219, 197);
@@ -169,12 +222,12 @@ td {
   padding: 10px;
   margin-bottom: 20px;
 }
+
 .form-control {
   margin-bottom: 2rem;
 }
-
-
 input[type="text"],
+input[type="number"],
 textarea {
   font-size: 1rem;
   padding: 10px;
@@ -187,7 +240,6 @@ textarea {
   list-style-type: none;
   padding: 0;
 }
-
 .list-group li {
   background-color: #fff;
   border: 1px solid #ccc;
@@ -197,23 +249,6 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Form Elements */
-.list-form {
-  margin-bottom: 2rem;
-}
-
-input[type="text"],
-input[type="number"] {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  background-color: #f8f9fa;
 }
 
 /* List Styling */
@@ -221,8 +256,8 @@ input[type="number"] {
   list-style: none;
   padding-left: 0;
   margin-top: 2rem;
+  max-width: 1200px;
 }
-
 .shopping-list li {
   background-color: #fff;
   padding: 1rem;
@@ -238,11 +273,11 @@ input[type="number"] {
   color: bisque;
   text-decoration: underline;
 }
-
 .clickable-cell:hover {
   text-decoration: none;
 }
-
+  
+/* Social media links */
 .social-links {
   display: flex;
   justify-content: center;
@@ -252,38 +287,13 @@ input[type="number"] {
   flex-wrap: wrap;
   gap: 15px;
 }
-
 .link {
   margin: 0 10px;
   color: #f4f4f4;
   text-decoration: none;
 }
-
 .link:hover {
   transform: scale(1.1);
-}
-
-/* Responsive Layout */
-@media (max-width: 768px) {
-  .container {
-    padding: 1rem;
-  }
-
-  .entry-form {
-    padding: 10px;
-  }
-
-  .entry-list-container {
-    padding: 10px;
-  }
-
-  .social-links {
-    flex-direction: column;
-  }
-
-  .link {
-    margin-bottom: 10px;
-  }
 }
 
 /* Page Not Found Styles */
@@ -296,20 +306,175 @@ input[type="number"] {
   text-align: center;
   background-color: #f8f9fa;
 }
-
 .error-icon {
   color: yellow;
   font-size: 100px;
   margin-bottom: 20px;
 }
-
 .error-image img {
   max-width: 100%;
   height: auto;
 }
-
 .error-message {
   font-size: 32px;
   font-weight: bold;
   margin-top: 20px;
 }
+
+/* Responsive Layout */
+@media (max-width: 1024px) {
+  .container {
+    padding: 2rem;
+  }
+  .button-container {
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px;
+  }
+  .button-container button {
+    width: 60%;
+    min-width: 20px;
+    max-width: 40px;
+    max-height: 40px;
+    padding: 0.3rem 0.5rem;
+  }
+  .exercise-list-form-container {
+    padding: 5px;
+  }
+  .entry-list-container {
+    padding: 0;
+  }
+  .table-responsive {
+    margin-bottom: 20px;
+  }
+  .table-responsive, .table td, .table th {
+    font-size: 15px;
+    padding: auto;
+}
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+  .button-container {
+    flex-direction: column;
+    align-items: center; 
+    gap: 10px;
+  }
+  .button-container button {
+    width: 60%;
+    min-width: 20px;
+    max-width: 40px;
+    max-height: 40px;
+    padding: 0.3rem 0.5rem;
+  }
+  .exercise-list-form-container {
+    padding: 5px;
+  }
+  .entry-list-container {
+    padding: 0;
+  }
+  .table-responsive {
+    margin-bottom: 20px;
+  }
+  .table-responsive, .table td, .table th {
+    font-size: 15px;
+}
+}
+
+@media (max-width: 480px) {
+  .table-responsive {
+    margin-bottom: 15px;
+  }
+  .button-container {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .button-container button {
+    font-size: 1rem;
+    border-radius: 3px;
+    padding: 0.3rem 0.5rem;
+    min-width: 20px; 
+    max-width: 40px;
+    max-height: 40px;
+  }
+  .table-responsive, .table td, .table th {
+    font-size: 13px;
+    text-align:start
+   
+}
+}
+
+@media (max-width: 375px) {
+  .entry-form-container,
+  .exercise-list-form-container {
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .form-control {
+    width: 100%;
+    margin-bottom: 15px;
+    font-size: 14px;
+  }
+  .add-entry-button {
+    width: 50%;
+    padding: 3px;
+  }
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .table {
+    width: 100%;
+    font-size: 12px;
+  }
+  .thead-dark th {
+    font-size: 14px;
+  }
+  .button-container button {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    border-radius: 3px;
+    padding: 0.3rem 0.5rem;
+    min-width: 20px; 
+    max-width: 38px;
+    max-height: 38px;
+  }
+  .table td,
+  .table th {
+    padding: 5px;
+  }
+  .heading {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  .favorite-links-list li {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+  .favorite-links-list a {
+    font-size: 14px;
+  }
+  .entry-form h4 {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .table th,
+  .table td {
+    font-size: 10px;
+    padding: 8px;
+  }
+  .social-links {
+    gap: 5px;
+  }
+  img,
+  svg {
+    vertical-align: middle;
+    height: 0.7em;
+    width: 0.7em;
+  }
+}
+
+  

@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import Hero from "../components/Hero/Hero";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaPlusCircle, FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import { FaPlusCircle, FaTrashAlt, FaEdit } from "react-icons/fa";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import backgroundImage from "../assets/notesBackground.jpg";
 import "../main.css";
 import "animate.css";
@@ -66,13 +67,16 @@ function Tasks() {
   };
 
   return (
-    <div className="page-background tasks-page"
-    style={{
-      backgroundImage: `url(${backgroundImage})`
-    }}
-  >
+    <div
+      className="page-background tasks-page"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
       <Hero>
-        <h1 className="animate__animated animate__rubberBand">Manage Your Tasks</h1>
+        <h1 className="animate__animated animate__rubberBand">
+          Manage Your Tasks
+        </h1>
       </Hero>
       <div className="container">
         <div className="content">
@@ -103,12 +107,14 @@ function Tasks() {
                       />
                     </div>
                     <button type="submit" className="add-task-button">
-                      {editIndex !== null ? "Update Task" : "Add Task"} <FaPlusCircle />
+                      {editIndex !== null ? "Update Task" : "Add Task"}{" "}
+                      <FaPlusCircle />
                     </button>
                   </form>
                 </div>
               </Col>
-              <Col xs={12} md={6} className="entry-form-container">
+
+              <Col xs={12} md={8} className="entry-form-container">
                 <div className="entry-list-container">
                   <h4 className="heading">Task List</h4>
                   <div className="table-responsive">
@@ -123,19 +129,28 @@ function Tasks() {
                       </thead>
                       <tbody>
                         {tasks.map((task, index) => (
-                          <tr key={index} className={task.isCompleted ? "completed-task" : ""}>
+                          <tr
+                            key={index}
+                            className={task.isCompleted ? "completed-task" : ""}
+                          >
                             <td>{task.title}</td>
                             <td>{task.dueDate}</td>
-                            <td>{task.isCompleted ? "Completed" : "Pending"}</td>
+                            <td>
+                              {task.isCompleted ? "Completed" : "Pending"}
+                              
+                            </td>
                             <td>
                               <div className="button-container">
-                                <button
-                                  type="button"
-                                  className="complete-button"
-                                  onClick={() => toggleCompletion(index)}
-                                >
-                                  <FaCheck />
-                                </button>
+                              <IoCheckmarkDoneCircleOutline
+                                style={{
+                                  color: task.isCompleted
+                                    ? "black"
+                                    : "#ff6347",
+                                    fontSize: "30px",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() => toggleCompletion(index)}
+                              />
                                 <button
                                   type="button"
                                   className="edit-button"

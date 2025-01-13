@@ -36,7 +36,7 @@ function Exercise() {
   const [duration, setDuration] = useState("");
   const [distance, setDistance] = useState("");
   const [notes, setNotes] = useState("");
-  const [date, setDate] = useState(""); // New state for date
+  const [date, setDate] = useState("");
   const [newLink, setNewLink] = useState("");
   const [viewEntry, setViewEntry] = useState(null); // Track entry to view in modal
 
@@ -107,11 +107,12 @@ function Exercise() {
   };
 
   return (
-    <div className="page-background exercise-page"
-    style={{
-      backgroundImage: `url(${backgroundImage})`
-    }}
-  >
+    <div
+      className="page-background exercise-page"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
       <Hero>
         <h1 className="animate__animated animate__rubberBand">
           Track Your Exercise!
@@ -185,55 +186,138 @@ function Exercise() {
               </Col>
 
               {/* Exercise Entries List */}
-              <Col xs={12} md={12} className="entry-form-container">
-                <div className="entry-form">
+              <Col xs={12} md={6} className="exercise-list-form-container">
+                <div className="entry-list-container">
                   <h4 className="heading">Exercise List</h4>
                   <div className="table-responsive">
                     <table className="table table-striped table-bordered">
-                      <thead className="thead-dark">
-                        <tr>
-                          <th>Workout</th>
-                          <th>Duration</th>
-                          <th>Distance</th>
-                          <th>Date</th>
-                          <th>Workout Notes</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
+                      <thead className="thead-dark"></thead>
+                      <tr>
+                        <th className="heading">Title</th>
+                        <th className="heading">Content</th>
+                        <th className="heading">Actions</th>
+                      </tr>
                       <tbody>
                         {entries.map((entry, index) => (
-                          <tr key={index}>
-                            <td>{entry.workoutType}</td>
-                            <td>{entry.duration} min</td>
-                            <td>{entry.distance} km</td>
-                            <td>{entry.date}</td>
-                            <td
-                              className="clickable-cell"
-                              onClick={() => handleViewNotes(entry)}
-                            >
-                              {entry.notes.length > 30
-                                ? `${entry.notes.substring(0, 30)}...` // Truncate long notes
-                                : entry.notes}
-                            </td>
-                            <td>
-                              <div className="button-container">
-                                <button
-                                  type="button"
-                                  className="edit-button"
-                                  onClick={() => handleEdit(index)}
-                                >
-                                  <FaEdit />
-                                </button>
-                                <button
-                                  type="button"
-                                  className="delete-button"
-                                  onClick={() => handleDelete(index)}
-                                >
-                                  <FaTrashAlt />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
+                          <>
+                            <tr key={`workout-${index}`}>
+                              <th>Workout</th>
+                              <td>{entry.workoutType}</td>
+                              <td>
+                                <div className="button-container">
+                                  <button
+                                    type="button"
+                                    className="edit-button"
+                                    onClick={() => handleEdit(index)}
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(index)}
+                                  >
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr key={`duration-${index}`}>
+                              <th>Duration</th>
+                              <td>{entry.duration} min</td>
+                              <td>
+                                <div className="button-container">
+                                  <button
+                                    type="button"
+                                    className="edit-button"
+                                    onClick={() => handleEdit(index)}
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(index)}
+                                  >
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr key={`distance-${index}`}>
+                              <th>Distance</th>
+                              <td>{entry.distance} km</td>
+                              <td>
+                                <div className="button-container">
+                                  <button
+                                    type="button"
+                                    className="edit-button"
+                                    onClick={() => handleEdit(index)}
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(index)}
+                                  >
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr key={`date-${index}`}>
+                              <th>Date</th>
+                              <td>{entry.date}</td>
+                              <td>
+                                <div className="button-container">
+                                  <button
+                                    type="button"
+                                    className="edit-button"
+                                    onClick={() => handleEdit(index)}
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(index)}
+                                  >
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr key={`notes-${index}`}>
+                              <th>Workout Notes</th>
+                              <td
+                                className="clickable-cell"
+                                onClick={() => handleViewNotes(entry)}
+                              >
+                                {entry.notes.length > 30
+                                  ? `${entry.notes.substring(0, 30)}...` // Truncate long notes
+                                  : entry.notes}
+                              </td>
+                              <td>
+                                <div className="button-container">
+                                  <button
+                                    type="button"
+                                    className="edit-button"
+                                    onClick={() => handleEdit(index)}
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(index)}
+                                  >
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                          </>
                         ))}
                         {/* Modal */}
                         {viewEntry && (
@@ -308,9 +392,9 @@ function Exercise() {
                           {link}
                         </a>
                         <button
-                          type="button" 
+                          type="button"
                           onClick={() => handleDeleteLink(index)}
-                           className="delete-button"
+                          className="delete-button"
                         >
                           <FaTrashAlt />
                         </button>

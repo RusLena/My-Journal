@@ -1,5 +1,5 @@
-import { Link, NavLink } from 'react-router-dom';
-import './style.css';
+import { Link, NavLink } from "react-router-dom";
+import "./style.css";
 
 function Navbar() {
   return (
@@ -26,7 +26,7 @@ function Navbar() {
                 to="/"
                 end
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 aria-label="Go to Journal page"
               >
@@ -37,7 +37,7 @@ function Navbar() {
               <NavLink
                 to="/list"
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 aria-label="Go to Shopping page"
               >
@@ -48,7 +48,7 @@ function Navbar() {
               <NavLink
                 to="/tasks"
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 aria-label="Go to Tasks page"
               >
@@ -60,7 +60,7 @@ function Navbar() {
                 to="/exercise"
                 end
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 aria-label="Go to Exercise page"
               >
@@ -72,7 +72,7 @@ function Navbar() {
                 to="/food"
                 end
                 className={({ isActive }) =>
-                  isActive ? 'nav-link active' : 'nav-link'
+                  isActive ? "nav-link active" : "nav-link"
                 }
                 aria-label="Go to Food page"
               >

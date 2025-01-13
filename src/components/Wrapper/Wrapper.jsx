@@ -1,8 +1,8 @@
-import PropTypes from 'prop-types';
-import "./style.css";  // Ensure the styles are applied here
+import PropTypes from "prop-types";
+import "./style.css";
 
 function Wrapper(props) {
-  return <main className="wrapper">{props.children}</main>;  // Wrapper the content
+  return <main className="wrapper">{props.children}</main>; // Wrap the content
 }
 
 Wrapper.propTypes = {

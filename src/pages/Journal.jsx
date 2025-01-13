@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Hero from "../components/Hero/Hero";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
 import { FaPlusCircle, FaTrashAlt, FaEdit } from "react-icons/fa";
-import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
 import backgroundImage from "../assets/journalBackground.jpg";
 import "../main.css";
 import "animate.css";
@@ -46,43 +46,46 @@ function Journal() {
     // Reset the form
     setTitle("");
     setContent("");
-    setDate(""); 
+    setDate("");
   };
 
   const handleEdit = (index) => {
     setEditIndex(index);
     setTitle(entries[index].title);
     setContent(entries[index].content);
-    setDate(entries[index].date); 
+    setDate(entries[index].date);
   };
 
   const handleDelete = (index) => {
     const updatedEntries = entries.filter((_, i) => i !== index);
     setEntries(updatedEntries);
   };
-  
+
   const handleViewContent = (entry) => {
-    setViewEntry(entry); 
+    setViewEntry(entry);
   };
 
   const handleCloseModal = () => {
-    setViewEntry(null); 
+    setViewEntry(null);
   };
 
   return (
-    <div className="page-background journal-page"
-    style={{
-      backgroundImage: `url(${backgroundImage})`
-    }}
-  >
+    <div
+      className="page-background journal-page"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
       <Hero>
-        <h1 className="animate__animated animate__rubberBand">Welcome to Your Journal!</h1>
+        <h1 className="animate__animated animate__rubberBand">
+          Welcome to Your Journal!
+        </h1>
       </Hero>
       <div className="container">
         <div className="content">
           <Container>
             <Row className="d-flex flex-column flex-md-row">
-              <Col xs={12} md={12} className="entry-form-container">
+              <Col xs={12} md={8} className="entry-form-container">
                 <div className="entry-form">
                   <h4 className="heading">Journal Entries</h4>
                   <form onSubmit={handleFormSubmit}>
@@ -116,12 +119,14 @@ function Journal() {
                       />
                     </div>
                     <button type="submit" className="add-entry-button">
-                      {editIndex !== null ? "Update Entry" : "Add Entry"} <FaPlusCircle />
+                      {editIndex !== null ? "Update Entry" : "Add Entry"}{" "}
+                      <FaPlusCircle />
                     </button>
                   </form>
                 </div>
               </Col>
-              <Col xs={12} md={12} className="entry-form-container">
+              
+              <Col xs={12} md={8} className="entry-form-container">
                 <div className="entry-list-container">
                   <h4 className="heading">Journal List</h4>
                   <div className="table-responsive">
@@ -129,22 +134,24 @@ function Journal() {
                       <thead className="thead-dark">
                         <tr>
                           <th className="heading">Title</th>
-                          <th className="heading">Content</th>
-                          <th className="heading">Date</th>
-                          <th className="heading">Actions</th>
+                          <th className="content">Content</th>
+                          <th className="date">Date</th>
+                          <th className="actions">Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         {entries.map((entry, index) => (
                           <tr key={index}>
                             <td className="larger-cell">{entry.title}</td>
-                            <td className="larger-cell clickable-cell" 
-                             onClick={() => handleViewContent(entry)} 
-                             >
+                            <td
+                              className="larger-cell clickable-cell"
+                              onClick={() => handleViewContent(entry)}
+                            >
                               {entry.content.length > 50
                                 ? `${entry.content.substring(0, 50)}...`
-                                : entry.content}</td>
-                            <td>{entry.date}</td> 
+                                : entry.content}
+                            </td>
+                            <td>{entry.date}</td>
                             <td>
                               <div className="button-container">
                                 <button
@@ -171,22 +178,42 @@ function Journal() {
                 </div>
               </Col>
               {/* Social Media Links */}
-      <div className="social-media-section">
-        <div className="social-links">
-          <a className="link" href="https://www.facebook.com" target="_blank" rel="noopener noreferrer">
-            <FaFacebook size={30} />
-          </a>
-          <a className="link" href="https://www.twitter.com" target="_blank" rel="noopener noreferrer">
-            <FaTwitter size={30} />
-          </a>
-          <a className="link" href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">
-            <FaInstagram size={30} />
-          </a>
-          <a className="link" href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">
-            <FaLinkedin size={30} />
-          </a>
-        </div>
-      </div>
+              <div className="social-media-section">
+                <div className="social-links">
+                  <a
+                    className="link"
+                    href="https://www.facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaFacebook size={30} />
+                  </a>
+                  <a
+                    className="link"
+                    href="https://www.twitter.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaTwitter size={30} />
+                  </a>
+                  <a
+                    className="link"
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaInstagram size={30} />
+                  </a>
+                  <a
+                    className="link"
+                    href="https://www.linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <FaLinkedin size={30} />
+                  </a>
+                </div>
+              </div>
             </Row>
           </Container>
         </div>
@@ -200,7 +227,9 @@ function Journal() {
           </Modal.Header>
           <Modal.Body>
             <p>{viewEntry.content}</p>
-            <p><strong>Date:</strong> {viewEntry.date}</p>
+            <p>
+              <strong>Date:</strong> {viewEntry.date}
+            </p>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleCloseModal}>
@@ -209,8 +238,6 @@ function Journal() {
           </Modal.Footer>
         </Modal>
       )}
-
-      
     </div>
   );
 }

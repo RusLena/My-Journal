@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import Hero from "../components/Hero/Hero";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaPlusCircle, FaTrashAlt, FaEdit, FaCheck } from "react-icons/fa";
+import { FaPlusCircle, FaTrashAlt, FaEdit } from "react-icons/fa";
+import { IoCheckmarkDoneCircleOutline } from "react-icons/io5";
 import backgroundImage from "../assets/shoppingListStoreBackground.jpg";
 import "../main.css";
 import "animate.css";
+import { v4 as uuidv4 } from "uuid";
 
 function Shopping() {
   const localStorageKey = "shoppingList";
@@ -29,7 +31,8 @@ function Shopping() {
   const [customCategory, setCustomCategory] = useState(""); // For "Other" category input
   const [isPurchased, setIsPurchased] = useState(false);
 
-  const stores = ["Other", 
+  const stores = [
+    "Other",
     "Asda",
     "Aldi",
     "Lidl",
@@ -67,7 +70,15 @@ function Shopping() {
     "Harrods",
     "Harvey Nichols",
   ];
-  const categories = ["Other", "Groceries", "Electronics", "Clothing", "Furniture", "Home Improvement", "Health & Beauty"];
+  const categories = [
+    "Other",
+    "Groceries",
+    "Electronics",
+    "Clothing",
+    "Furniture",
+    "Home Improvement",
+    "Health & Beauty",
+  ];
 
   useEffect(() => {
     localStorage.setItem(localStorageKey, JSON.stringify(items));
@@ -76,11 +87,22 @@ function Shopping() {
   const handleFormSubmit = (e) => {
     e.preventDefault();
 
+    // Generate a unique ID for each item
+    const id = uuidv4();
+
     // Save the custom store if "Other" is selected, otherwise use the selected store
     const storeToSave = store === "Other" ? customStore : store;
     const categoryToSave = category === "Other" ? customCategory : category;
 
-    const newItem = { itemName, quantity: Number(quantity), category: categoryToSave, price: Number(price), store: storeToSave, isPurchased };
+    const newItem = {
+      id,
+      itemName,
+      quantity: Number(quantity),
+      category: categoryToSave,
+      price: Number(price),
+      store: storeToSave,
+      isPurchased,
+    };
 
     if (editIndex !== null) {
       const updatedItems = [...items];
@@ -112,13 +134,13 @@ function Shopping() {
     setStore(item.store);
     setIsPurchased(item.isPurchased);
 
-    // If the store is custom, set it to "Other" and fill the custom field
+    // Custom shop is set it to "Other"
     if (!stores.includes(item.store)) {
       setStore("Other");
       setCustomStore(item.store);
     }
 
-    // If the category is custom, set it to "Other" and fill the custom field
+    // Custom category is set it to "Other"
     if (item.category === "Other") {
       setCategory("Other");
       setCustomCategory(item.category);
@@ -137,25 +159,29 @@ function Shopping() {
   };
 
   const handlePriceChange = (value) => {
-    const numericValue = Math.max(0, Number(value)); // Ensure no negative values
+    const numericValue = Math.max(0, Number(value)); // No negative values
     setPrice(numericValue);
   };
 
   const handleQuantityChange = (value) => {
-    const numericValue = Math.max(0, Number(value)); // Ensure no negative values
+    const numericValue = Math.max(0, Number(value)); // No negative values
     setQuantity(numericValue);
   };
 
   // Calculate totals
   const totalItems = items.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  const totalPrice = items.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
 
   return (
-    <div className="page-background list-page"
-    style={{
-      backgroundImage: `url(${backgroundImage})`
-    }}
-  >
+    <div
+      className="page-background list-page"
+      style={{
+        backgroundImage: `url(${backgroundImage})`,
+      }}
+    >
       <Hero>
         <h1 className="animate__animated animate__rubberBand">Shopping List</h1>
       </Hero>
@@ -247,69 +273,103 @@ function Shopping() {
                       )}
                     </div>
                     <button type="submit" className="add-item-button">
-                      {editIndex !== null ? "Update Item" : "Add Item"} <FaPlusCircle />
+                      {editIndex !== null ? "Update Item" : "Add Item"}{" "}
+                      <FaPlusCircle />
                     </button>
                   </form>
                 </div>
               </Col>
-              <Col xs={12} md={12} className="entry-form-container">
+
+              <Col xs={12} md={8} className="shopping-list-form-container">
                 <div className="entry-list-container">
                   <h4 className="heading">Shopping List</h4>
                   <div className="totals">
-                    <p><strong>Total Items:</strong> {totalItems}</p>
-                    <p><strong>Total Price:</strong> £{totalPrice.toFixed(2)}</p>
+                    <p>
+                      <strong>Total Items:</strong> {totalItems}
+                    </p>
+                    <p>
+                      <strong>Total Price:</strong> £{totalPrice.toFixed(2)}
+                    </p>
                   </div>
                   <div className="table-responsive">
                     <table className="table table-striped table-bordered">
-                      <thead className="thead-dark">
-                        <tr>
-                          <th className="heading">Item</th>
-                          <th className="heading">Quantity</th>
-                          <th className="heading">Category</th>
-                          <th className="heading">Price</th>
-                          <th className="heading">Store</th>
-                          <th className="heading">Status</th>
-                          <th className="heading">Actions</th>
-                        </tr>
-                      </thead>
+                      <thead className="thead-dark"> </thead>
+                      <tr>
+                        <th className="heading">Title</th>
+                        <th className="heading">Content</th>
+                        <th className="heading">Status</th>
+                        <th className="heading">Actions</th>
+                      </tr>
+
                       <tbody>
                         {items.map((item, index) => (
-                          <tr
-                            key={index}
-                            className={item.isPurchased ? "purchased-item" : ""}
-                          >
-                            <td>{item.itemName}</td>
-                            <td>{item.quantity}</td>
-                            <td>{item.category}</td>
-                            <td>{item.price.toFixed(2)}</td>
-                            <td>{item.store}</td>
-                            <td>{item.isPurchased ? "Purchased" : "Pending"}</td>
-                            <td>
-                              <div className="button-container">
-                                <button
-                                  type="button"
-                                  className="complete-button"
+                          <>
+                            <tr
+                              key={index}
+                              className={
+                                item.isPurchased ? "purchased-item" : ""
+                              }
+                            >
+                              <th className="heading">Item</th>
+                              <td>{item.itemName}</td>
+                              <td>
+                                {item.isPurchased ? "Purchased" : "Pending"}
+                                
+                              </td>
+                              <td>
+                                <div className="button-container">
+                                <IoCheckmarkDoneCircleOutline 
+                                  style={{
+                                    color: item.isPurchased
+                                      ? "black"
+                                      : "#ff6347",
+                                      fontSize: "30px",
+                                    cursor: "pointer",
+                                  }}
                                   onClick={() => togglePurchased(index)}
-                                >
-                                  <FaCheck />
-                                </button>
-                                <button
-                                  type="button"
-                                  className="edit-button"
-                                  onClick={() => handleEdit(index)}
-                                >
-                                  <FaEdit />
-                                </button>
-                                <button
-                                  type="button"
-                                  className="delete-button"
-                                  onClick={() => handleDelete(index)}
-                                >
-                                  <FaTrashAlt />
-                                </button>
-                              </div>
-                            </td>
-                          </tr>
+                                />
+                                  <button
+                                    type="button"
+                                    className="edit-button"
+                                    onClick={() => handleEdit(index)}
+                                  >
+                                    <FaEdit />
+                                  </button>
+                                  <button
+                                    type="button"
+                                    className="delete-button"
+                                    onClick={() => handleDelete(index)}
+                                  >
+                                    <FaTrashAlt />
+                                  </button>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <th className="heading">Quantity</th>
+                              <td>{item.quantity}</td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th className="heading">Category</th>
+                              <td>{item.category}</td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th className="heading">Price</th>
+                              <td>{item.price.toFixed(2)}</td>
+                              <td></td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <th className="heading">Store</th>
+                              <td>{item.store}</td>
+                              <td>{item.isPurchased}</td>
+                              <td></td>
+                            </tr>
+                          </>
                         ))}
                       </tbody>
                     </table>

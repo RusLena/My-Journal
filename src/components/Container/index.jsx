@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 function Container({ style, children }) {
-  return <div className="container" style={style}>{children}</div>;
+  return (
+    <div className="container" style={style}>
+      {children}
+    </div>
+  );
 }
 
 Container.propTypes = {
@@ -10,4 +14,3 @@ Container.propTypes = {
 };
 
 export default Container;
-
