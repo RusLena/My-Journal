@@ -337,46 +337,54 @@ function Food() {
               </div>
             </Col>
 
-            <Col xs={12} md={12} className="entry-form-container">
-              <div className="entry-list-container">
-                <div className="table-responsive">
-                  <h4 className="heading">Food Record</h4>
-                  <ul className="list-group">
-                    {foodList.map((item, index) => (
-                      <li
-                        key={index}
-                        className="list-group-item d-flex justify-content-between align-items-center"
-                      >
-                        <div>
-                          <strong>
-                            <mark>{item.day}</mark>, {item.meal}
-                          </strong>{" "}
-                          - {item.foodType}, Quantity: {item.quantity}{" "}
-                          {item.unit}, Calories: {item.calories}
-                        </div>
+<Col xs={12} md={12} className="food-entry-form-container">
+  <div className="entry-list-container">
+    <h4 className="heading">Food Record</h4>
+    <div className="food-table-responsive">
+      <table className="table table-striped table-bordered">
+        <thead className="thead-dark">
+          <tr>
+            <th className="heading">Food Details</th>
+            <th className="heading">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {foodList.map((item, index) => (
+            <tr key={index}>
+              {/* Content Column */}
+              <td className="food-content-column">
+                <strong>
+                  <mark>{item.day}</mark>, {item.meal}
+                </strong>{" "}
+                - {item.foodType}, Quantity: {item.quantity} {item.unit}, Calories: {item.calories}
+              </td>
 
-                        <div className="button-container">
-                          <button
-                            type="button"
-                            className="edit-button"
-                            onClick={() => handleEdit(index)}
-                          >
-                            <FaEdit />
-                          </button>
-                          <button
-                            type="button"
-                            className="delete-button"
-                            onClick={() => handleDelete(index)}
-                          >
-                            <FaTrashAlt />
-                          </button>
-                        </div>
-                      </li>
-                    ))}{" "}
-                  </ul>
-                </div>{" "}
-              </div>
-            </Col>
+              {/* Action Buttons Column */}
+              <td className="food-action-column">
+                <div className="button-container">
+                  <button
+                    type="button"
+                    className="edit-button"
+                    onClick={() => handleEdit(index)}
+                  >
+                    <FaEdit />
+                  </button>
+                  <button
+                    type="button"
+                    className="delete-button"
+                    onClick={() => handleDelete(index)}
+                  >
+                    <FaTrashAlt />
+                  </button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</Col>
 
             {/* Favorite Recipes Section */}
             <Col xs={12} md={12} className="entry-form-container">
